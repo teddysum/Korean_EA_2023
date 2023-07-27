@@ -80,3 +80,8 @@ python -m run inference \
     --batch-size=64 \
     --device cuda:0
 ```
+
+### Reference
+국립국어원 모두의말뭉치 (https://corpus.korean.go.kr/)
+transformers (https://github.com/huggingface/transformers)
+KLUE (https://github.com/KLUE-benchmark/KLUE)
