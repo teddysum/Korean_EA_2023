@@ -1,5 +1,5 @@
 # Table-to-Text Baseline
-본 리포지토리는 2023 국립국어원 인공 지능 언어 능력 평가 중 Table-to-Text의 베이스라인 모델 및 해당 모델의 재현을 위한 소스 코드를 포함하고 있습니다.  
+본 리포지토리는 2023 국립국어원 인공 지능 언어 능력 평가 중 감성 분석(Sentiment Analysis)의 베이스라인 모델 및 해당 모델의 재현을 위한 소스 코드를 포함하고 있습니다.
 ### Baseline
 |Model|Micro-F1|Accuracy|
 |:---:|---|---|
@@ -82,6 +82,6 @@ python -m run inference \
 ```
 
 ### Reference
-국립국어원 모두의말뭉치 (https://corpus.korean.go.kr/)
-transformers (https://github.com/huggingface/transformers)
+국립국어원 모두의말뭉치 (https://corpus.korean.go.kr/)  
+transformers (https://github.com/huggingface/transformers)  
 KLUE (https://github.com/KLUE-benchmark/KLUE)
