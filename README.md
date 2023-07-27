@@ -3,7 +3,7 @@
 ### Baseline
 |Model|Micro-F1|Accuracy|
 |:---:|---|---|
-|klue/roberta|0.85749|0.79156|
+|klue/roberta-base|0.85749|0.79156|
 
 ## Directory Structue
 ```
