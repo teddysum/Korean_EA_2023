@@ -64,9 +64,10 @@ pip install -r requirements.txt
 ## How to Run
 ### Train
 ```
-python -m run train \
+accelerate launch --num_processes=2 \
+    -m run train \
     --output-dir outputs/sa \
-    --seed 42 --epoch 10 --gpus 2 \
+    --seed 42 --epoch 10 \
     --learning-rate 2e-4 --weight-decay 0.01 \
     --batch-size=16 --valid-batch-size=16 \
     --wandb-project sa

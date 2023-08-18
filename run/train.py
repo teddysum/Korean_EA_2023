@@ -23,17 +23,15 @@ parser = argparse.ArgumentParser(prog="train", description="Train Table to Text 
 
 g = parser.add_argument_group("Common Parameter")
 g.add_argument("--output-dir", type=str, required=True, help="output directory path to save artifacts")
-g.add_argument("--model-path", type=str, default="klue/roberta-base" help="model file path")
-parser.add_argument("--tokenizer", type=str, default="klue/roberta-base", help="huggingface tokenizer path")
-g.add_argument("--tokenizer", type=str, help="huggingface tokenizer path")
-parser.add_argument("--max-seq-len", type=int, default=512, help="max sequence length")
+g.add_argument("--model-path", type=str, default="klue/roberta-base", help="model file path")
+g.add_argument("--tokenizer", type=str, default="klue/roberta-base", help="huggingface tokenizer path")
+g.add_argument("--max-seq-len", type=int, default=512, help="max sequence length")
 g.add_argument("--batch-size", type=int, default=32, help="training batch size")
 g.add_argument("--valid-batch-size", type=int, default=64, help="validation batch size")
 g.add_argument("--accumulate-grad-batches", type=int, default=1, help=" the number of gradident accumulation steps")
 g.add_argument("--epochs", type=int, default=10, help="the numnber of training epochs")
 g.add_argument("--learning-rate", type=float, default=2e-4, help="max learning rate")
 g.add_argument("--weight-decay", type=float, default=0.01, help="weight decay")
-g.add_argument("--gpus", type=int, default=0, help="the number of gpus")
 g.add_argument("--seed", type=int, default=42, help="random seed")
 
 g = parser.add_argument_group("Wandb Options")
@@ -41,7 +39,6 @@ g.add_argument("--wandb-run-name", type=str, help="wanDB run name")
 g.add_argument("--wandb-entity", type=str, help="wanDB entity name")
 g.add_argument("--wandb-project", type=str, help="wanDB project name")
 # fmt: on
-
 
 def main(args):
     logger = logging.getLogger("train")
@@ -52,7 +49,7 @@ def main(args):
         handler.setFormatter(logging.Formatter("[%(asctime)s] %(message)s"))
         logger.addHandler(handler)
 
-    os.makedirs(args.output_dir)
+    os.makedirs(args.output_dir, exist_ok=True)
     logger.info(f'[+] Save output to "{args.output_dir}"')
 
     logger.info(" ====== Arguements ======")
@@ -64,8 +61,6 @@ def main(args):
     os.environ["PYTHONHASHSEED"] = str(args.seed)
     torch.manual_seed(args.seed)
     torch.cuda.manual_seed(args.seed)  # type: ignore
-
-    logger.info(f"[+] GPU: {args.gpus}")
 
     logger.info(f'[+] Load Tokenizer"')
     tokenizer = AutoTokenizer.from_pretrained(args.tokenizer)
@@ -106,7 +101,7 @@ def main(args):
         label2id=label2id
     )
 
-    args = TrainingArguments(
+    targs = TrainingArguments(
         output_dir=args.output_dir,
         evaluation_strategy="epoch",
         save_strategy="epoch",
@@ -144,7 +139,7 @@ def main(args):
 
     trainer = Trainer(
         model,
-        args,
+        targs,
         train_dataset=encoded_tds,
         eval_dataset=encoded_vds,
         tokenizer=tokenizer,
