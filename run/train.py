@@ -18,14 +18,13 @@ from datasets import Dataset
 from sklearn.metrics import f1_score, roc_auc_score, accuracy_score
 
 
-# fmt: off
 parser = argparse.ArgumentParser(prog="train", description="Train Table to Text with BART")
 
 g = parser.add_argument_group("Common Parameter")
 g.add_argument("--output-dir", type=str, required=True, help="output directory path to save artifacts")
 g.add_argument("--model-path", type=str, default="klue/roberta-base", help="model file path")
 g.add_argument("--tokenizer", type=str, default="klue/roberta-base", help="huggingface tokenizer path")
-g.add_argument("--max-seq-len", type=int, default=512, help="max sequence length")
+g.add_argument("--max-seq-len", type=int, default=128, help="max sequence length")
 g.add_argument("--batch-size", type=int, default=32, help="training batch size")
 g.add_argument("--valid-batch-size", type=int, default=64, help="validation batch size")
 g.add_argument("--accumulate-grad-batches", type=int, default=1, help=" the number of gradident accumulation steps")
@@ -34,11 +33,6 @@ g.add_argument("--learning-rate", type=float, default=2e-4, help="max learning r
 g.add_argument("--weight-decay", type=float, default=0.01, help="weight decay")
 g.add_argument("--seed", type=int, default=42, help="random seed")
 
-g = parser.add_argument_group("Wandb Options")
-g.add_argument("--wandb-run-name", type=str, help="wanDB run name")
-g.add_argument("--wandb-entity", type=str, help="wanDB entity name")
-g.add_argument("--wandb-project", type=str, help="wanDB project name")
-# fmt: on
 
 def main(args):
     logger = logging.getLogger("train")

@@ -53,7 +53,7 @@ docker pull nvcr.io/nvidia/pytorch:22.08-py3
 
 Docker Run Script
 ```
-docker run -dit --gpus all --shm-size=8G --name baseline_sa nvcr.io/nvidia/pytorch:23.05-py3
+docker run -dit --gpus all --shm-size=8G --name baseline_ea nvcr.io/nvidia/pytorch:22.08-py3
 ```
 
 Install Python Dependency
@@ -64,21 +64,19 @@ pip install -r requirements.txt
 ## How to Run
 ### Train
 ```
-accelerate launch --num_processes=2 \
-    -m run train \
+python -m run train \
     --output-dir outputs/sa \
     --seed 42 --epoch 10 \
-    --learning-rate 2e-4 --weight-decay 0.01 \
-    --batch-size=16 --valid-batch-size=16 \
-    --wandb-project sa
+    --learning-rate 2e-5 --weight-decay 0.01 \
+    --batch-size 64 --valid-batch-size 64
 ```
 
 ### Inference
 ```
 python -m run inference \
-    --model-ckpt-path outputs/sa/<your-model-ckpt-path> \
+    --model-ckpt-path /workspace/Korean_EA_2023/outputs/sa/checkpoint-1212 \
     --output-path test_output.jsonl \
-    --batch-size=64 \
+    --batch-size 64 \
     --device cuda:0
 ```
 
