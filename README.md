@@ -65,7 +65,7 @@ pip install -r requirements.txt
 ### Train
 ```
 python -m run train \
-    --output-dir outputs/sa \
+    --output-dir outputs/ \
     --seed 42 --epoch 10 \
     --learning-rate 2e-5 --weight-decay 0.01 \
     --batch-size 64 --valid-batch-size 64
@@ -74,7 +74,7 @@ python -m run train \
 ### Inference
 ```
 python -m run inference \
-    --model-ckpt-path /workspace/Korean_EA_2023/outputs/sa/checkpoint-1212 \
+    --model-ckpt-path /workspace/Korean_EA_2023/outputs/<your-model-ckpt-path> \
     --output-path test_output.jsonl \
     --batch-size 64 \
     --device cuda:0
